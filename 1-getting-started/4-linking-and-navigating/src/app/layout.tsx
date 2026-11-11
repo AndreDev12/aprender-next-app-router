@@ -9,6 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Link href="/blog">Blog</Link>
           {/* No prefetching */}
           <a href="/contact">Contact</a>
+          <Link href="/dashboard">Dashboard</Link>
         </nav>
         {children}
       </body>
