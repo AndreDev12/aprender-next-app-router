@@ -1,4 +1,4 @@
-import Counter from '@/app/ui/page';
+import { Counter } from '@/app/ui';
 
 export default function Home() {
   return (
