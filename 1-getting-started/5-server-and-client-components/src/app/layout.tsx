@@ -3,17 +3,25 @@
 // Server Component
 // import Logo from './logo';
 
+import ThemeProvider from './theme-provider';
+
 // Layout is a Server Component by default
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <html lang="en">
         <body className="min-h-full flex flex-col">
-          <nav>
-            {/* <Logo />
+          <ThemeProvider>
+            <nav>
+              {/* <Logo />
             <Search /> */}
-          </nav>
-          <main>{children}</main>
+            </nav>
+            <main>{children}</main>
+          </ThemeProvider>
         </body>
       </html>
     </>
