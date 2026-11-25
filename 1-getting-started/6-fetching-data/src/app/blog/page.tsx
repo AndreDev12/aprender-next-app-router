@@ -1,19 +1,46 @@
-import { Suspense } from 'react';
+'use client';
 
-import { getPosts } from '@/app/util';
-import { BlogListSkeleton } from '@/components';
-import { Posts } from '@/app/ui';
+import useSWR from 'swr';
 
-export default function Page() {
-  // Don't await the data fetching function
-  const posts = getPosts();
+import type { Blog } from '@/app/interface';
+
+const fetcher = (url: string): Promise<Blog[]> =>
+  fetch(url).then((res) => res.json());
+
+export default function BlogPage() {
+  const { data, error, isLoading } = useSWR(
+    'https://api.vercel.app/blog',
+    fetcher,
+  );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <Suspense fallback={<BlogListSkeleton />}>
-      <Posts posts={posts} />
-    </Suspense>
+    <ul>
+      {data?.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
   );
 }
+
+// import { Suspense } from 'react';
+
+// import { getPosts } from '@/app/util';
+// import { BlogListSkeleton } from '@/components';
+// import { Posts } from '@/app/ui';
+
+// export default function Page() {
+//   // Don't await the data fetching function
+//   const posts = getPosts();
+
+//   return (
+//     <Suspense fallback={<BlogListSkeleton />}>
+//       <Posts posts={posts} />
+//     </Suspense>
+//   );
+// }
 
 // import { Suspense } from 'react';
 
